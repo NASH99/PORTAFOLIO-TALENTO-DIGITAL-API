@@ -1,3 +1,21 @@
+import express from 'express';
+import { pool } from './db.js';
+import usuariosRoutes  from './routes/usuarios.routes.js'
+
+const app = express();
+
+app.get('/ping', async (req,res)=>{
+    const [result] = await pool.query('select * from usuario')
+    res.json(result);
+})
+
+app.use(usuariosRoutes);
+
+app.listen(80);
+console.log('Server running')
+
+
+/*
 const express = require('express');
 const app = express();
 
@@ -46,3 +64,4 @@ app.delete('/api/students/:id', (req,res)=>{
 
 const port = process.env.port || 80;
 app.listen(port, () => console.log(`Escuchando en el puerto ${port}`));
+*/
