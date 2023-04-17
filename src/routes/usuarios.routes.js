@@ -7,7 +7,8 @@ const router = Router();
 router.get('/usuarios', getUsuarios);
 router.get('/usuarios/:id', getUsuario);
 router.post('/usuarios', createUsuarios);
-router.put('/usuarios', updateUsuarios);
+//Patch para actualizar un valor y que los demas queden iguales, con PUT se actualizan todos o los que no se envian quedan en null
+router.patch('/usuarios/:id', updateUsuarios);
 router.delete('/usuarios/:id', deleteUsuarios);
 
 export default router

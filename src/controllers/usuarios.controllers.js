@@ -28,8 +28,17 @@ export const createUsuarios = async (req,res) => {
      });
 }
 
-export const updateUsuarios = (req,res) => {
-    res.send('Actualizando usuarios');
+export const updateUsuarios = async (req,res) => {
+    const {id} = req.params;
+    const {nombre,apellido} = req.body
+
+    const [result] = await pool.query('update usuario set nombreusuario = IFNULL(?,nombreusuario) ,apellidousuario = IFNULL(?,apellidousuario) where idusuario = ?', [nombre,apellido,id])
+    console.log(result)
+    if(result.affectedRows === 0) return res.status(404).json({
+        message: 'Usuario no encontrado'
+    });
+    const [rows] = await pool.query('select * from usuario where idusuario = ?', [id])
+    res.json(rows[0])
 }
 
 export const deleteUsuarios = async (req,res) => {
