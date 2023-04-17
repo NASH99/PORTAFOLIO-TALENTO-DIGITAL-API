@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json())
 
 //Uso de rutas REVISAR USO DE RUTAS DE USUARIO.ROUTES
-app.use('/api',indexRoutes);
+app.use(indexRoutes);
 app.use('/api',usuariosRoutes);
 
 //Levantar el servidor

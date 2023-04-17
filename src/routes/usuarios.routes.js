@@ -1,10 +1,13 @@
 import {Router} from 'express'
+import { getUsuarios,getUsuario, createUsuarios,updateUsuarios,deleteUsuarios} from '../controllers/usuarios.controllers.js';
 
 const router = Router();
 
-router.get('/usuarios', (req,res)=>{res.send('obteniendo usuarios')})
-router.post('/usuarios', (req,res)=>{res.send('agregando usuarios')})
-router.put('/usuarios', (req,res)=>{res.send('actualizando usuarios')})
-router.delete('/usuarios', (req,res)=>{res.send('eliminando usuarios')})
+//Creacion de rutas junto con su importacion de controlador
+router.get('/usuarios', getUsuarios);
+router.get('/usuarios/:id', getUsuario);
+router.post('/usuarios', createUsuarios);
+router.put('/usuarios', updateUsuarios);
+router.delete('/usuarios/:id', deleteUsuarios);
 
 export default router
