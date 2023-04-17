@@ -31,7 +31,13 @@ export const getUsuario = async (req,res) => {
 
 export const createUsuarios = async (req,res) => {
     //Como extra se podrian validar los datos en caso de que se envien mal
-    const {nombre,apellido,nick,email,clave,admin} = req.body;
+    let {nombre,apellido,nick,email,clave,admin} = req.body;
+    //En el postman metodo POST debe ir con los nombres de las variables de arriba
+    console.log(nombre,admin)
+    if(admin != true){
+        admin = false;
+    }
+    console.log(admin)
     try{
         const [ rows ] = await pool.query('insert into usuario (nombreUsuario,apellidoUsuario,nickUsuario,emailUsuario,claveUsuario,isAdminUsuario) values (?,?,?,?,?,?)',[nombre,apellido,nick,email,clave,admin]);
         console.log('CREAR USUARIOS')
