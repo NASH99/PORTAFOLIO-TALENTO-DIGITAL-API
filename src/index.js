@@ -1,67 +1,18 @@
 import express from 'express';
 import { pool } from './db.js';
 import usuariosRoutes  from './routes/usuarios.routes.js'
+import indexRoutes from './routes/index.routes.js'
 
 const app = express();
 
-app.get('/ping', async (req,res)=>{
-    const [result] = await pool.query('select * from usuario')
-    res.json(result);
-})
+//Convertir los datos en json para las rutas
+app.use(express.json())
 
-app.use(usuariosRoutes);
+//Uso de rutas REVISAR USO DE RUTAS DE USUARIO.ROUTES
+app.use('/api',indexRoutes);
+app.use('/api',usuariosRoutes);
 
+//Levantar el servidor
 app.listen(80);
 console.log('Server running')
 
-
-/*
-const express = require('express');
-const app = express();
-
-app.use(express.json());
-
-const students = [
-    {id: 1, name: 'Jorge', age: 20, enroll: true},
-    {id: 2, name: 'Ignacio', age: 21, enroll: false},
-    {id: 3, name: 'Felipe', age: 24, enroll: false}
-];
-
-app.get('/', (req,res) => {
-    res.send('Node JS api');
-});
-
-app.get('/api/students', (req,res) => {
-    res.send(students);
-})
-
-app.get('/api/students/:id',(req,res) => {
-    const student = students.find( c => c.id === parseInt(req.params.id));
-    if(!student) return res.status(404).send('Estudiante no encontrado');
-    else res.send(student);
-});
-
-app.post('/api/students', (req,res) =>{
-    const student = {
-        id: students.length + 1,
-        name: req.body.name,
-        age: parseInt(req.body.age),
-        enroll: (req.body.enroll === 'true')
-    };
-
-    students.push(student);
-    res.send(student);
-});
-
-app.delete('/api/students/:id', (req,res)=>{
-    const student = students.find( c => c.id === parseInt(req.params.id));
-    if(!student) return res.status(404).send('Estudiante no encontrado');
-
-    const index = students.indexOf(student);
-    students.splice(index, 1);
-    res.send(student);
-});
-
-const port = process.env.port || 80;
-app.listen(port, () => console.log(`Escuchando en el puerto ${port}`));
-*/
