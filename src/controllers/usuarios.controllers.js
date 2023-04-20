@@ -51,7 +51,6 @@ export const createUsuarios = async (req,res) => {
             message: 'Algo falló'
         })
     }
-
 }
 
 export const updateUsuarios = async (req,res) => {
