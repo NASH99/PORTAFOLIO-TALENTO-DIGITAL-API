@@ -1,24 +1,32 @@
+create database BPMCommunity;
+use BPMCommunity;
 
 CREATE TABLE genero_musical(
-	idGenero_musical SERIAL PRIMARY KEY,
-    nombreGenero_musical VARCHAR(50) NOT NULL
+	idGenero_musical INT AUTO_INCREMENT PRIMARY KEY,
+    nombreGenero_musical VARCHAR(50) NOT NULL,
+    imagenGenero_musical VARCHAR(2000) 
 );
 
-INSERT INTO genero_musical(nombreGenero_musical) VALUES ('rock'),('electronica'),('reggaeton'),('pop');
+INSERT INTO genero_musical(nombreGenero_musical,imagenGenero_musical) 
+VALUES 
+('rock','src/img/covers/rock.png'),
+('electronica','src/img/covers/electronica.png'),
+('reggaeton','src/img/covers/reggaeton.png'),
+('pop','src/img/covers/pop.png');
 
 CREATE TABLE usuario( 
-	idUsuario SERIAL PRIMARY KEY,
+	idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nombreUsuario VARCHAR(25) NOT NULL ,
-	apellidousuario VARCHAR(25) NOT NULL ,
+	apellidoUsuario VARCHAR(25) NOT NULL ,
 	nickUsuario varchar(30) NOT NULL,
     emailUsuario varchar(30) NOT NULL,
     claveUsuario varchar(30) NOT NULL,
-    isAdminUsuario boolean DEFAULT false,
+    isadminUsuario boolean DEFAULT false,
     idGenero_musical int,
     FOREIGN KEY (idGenero_musical) REFERENCES genero_musical(idGenero_musical)
 );
 
-INSERT INTO usuario (nombreUsuario,apellidoUsuario,nickUsuario,emailUsuario,claveUsuario,isAdminUsuario,idGenero_musical)
+INSERT INTO usuario (nombreUsuario,apellidoUsuario,nickUsuario,emailUsuario,claveUsuario,isadminUsuario,idGenero_musical)
 VALUES
 ('ignacio','alvarado','ignacio99k','ignacio99k@hotmail.com','123',true,3),
 ('pedro','heiser','nico123','pedro@gmail.com','123',false,2),
@@ -26,7 +34,7 @@ VALUES
 select * from usuario;
 
 CREATE TABLE publicacion(
-	idPublicaciones SERIAL PRIMARY KEY,
+	idPublicaciones INT AUTO_INCREMENT PRIMARY KEY,
     tituloPublicacion VARCHAR(50) NOT NULL,
     descripcionPublicacion VARCHAR(2000) NOT NULL,
     fechaPublicacion date NOT NULL ,
@@ -42,14 +50,14 @@ VALUES
 select * from publicacion;
 
 CREATE TABLE pais(
-	idPais SERIAL PRIMARY KEY,
+	idPais INT AUTO_INCREMENT PRIMARY KEY,
     nombrePais VARCHAR(30)
 );
 INSERT INTO pais (nombrePais) VALUES ('chile'),('eeuu'),('canada');
 select * from pais;
 
 CREATE TABLE perfil( 
-	idPerfil SERIAL PRIMARY KEY,
+	idPerfil INT AUTO_INCREMENT PRIMARY KEY,
     tituloPerfil VARCHAR(100),
 	telefonoPerfil int,
 	nacimientoPerfil date,
@@ -67,3 +75,10 @@ VALUES
 ('Bienvenidos a mi perfil pedro',934318745,'1998-07-14','masculino','Me inicie en la musica...',2,2),
 ('Bienvenidos a mi perfil nicolas',934318744,'1995-07-14','masculino','Me inicie en la musica...',3,3);
 select * from perfil;
+
+
+drop table publicacion;
+drop table perfil;
+drop table pais;
+drop table usuario;
+drop table genero_musical;

@@ -74,6 +74,8 @@ export const updateUsuarios = async (req,res) => {
 
 export const deleteUsuarios = async (req,res) => {
     try{
+        await pool.query('delete from perfil where idusuario = ?',[req.params.id]);
+        await pool.query('delete from publicacion where idusuario = ?',[req.params.id]);
         const [ result ] = await pool.query('delete from usuario where idusuario = ?',[req.params.id]);
         console.log(result)
         if(result.affectedRows <= 0) return res.status(404).json({
