@@ -29,6 +29,23 @@ export const getUsuario = async (req,res) => {
 
 }
 
+export const getUsuarioPerfil = async (req,res) => {
+    try{
+        const [ rows ] = await pool.query('select U.idUsuario,U.nombreUsuario,U.apellidoUsuario,U.nickUsuario,U.emailUsuario,P.tituloPerfil,P.nombreArtistaPerfil,P.telefonoPerfil,P.nacimientoPerfil,P.GeneroPerfil,P.biografiaPerfil,P.idPais from usuario U inner join perfil P on U.idPerfil = P.idPerfil  WHERE idUsuario = ?;',[req.params.id]);
+        console.log(req.params.id)
+        console.log('OBTENER USUARIO')
+        if(rows.length <= 0) return res.status(404).json({
+            message: 'Usuario no encontrado'
+        })
+        res.json(rows[0]);
+    } catch (error){
+        return res.status(500).json({
+            message: 'Algo falló'
+        })
+    }
+
+}
+
 export const createUsuarios = async (req,res) => {
     //Como extra se podrian validar los datos en caso de que se envien mal
     let {nombre,apellido,nick,email,clave,admin} = req.body;
