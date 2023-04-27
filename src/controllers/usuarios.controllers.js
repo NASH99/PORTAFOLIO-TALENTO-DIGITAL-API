@@ -31,7 +31,7 @@ export const getUsuario = async (req,res) => {
 
 export const getUsuarioPerfil = async (req,res) => {
     try{
-        const [ rows ] = await pool.query('select * from perfil P INNER JOIN usuario U ON P.idUsuario = U.idUsuario INNER JOIN pais Pa ON Pa.idPais = P.idPais WHERE U.idUsuario = ?;',[req.params.id]);
+        const [ rows ] = await pool.query('select * from perfil P INNER JOIN usuario U ON P.idUsuario = U.idUsuario INNER JOIN pais Pa ON Pa.idPais = P.idPais INNER JOIN genero_musical G ON P.idGenero_musical = G.idGenero_musical WHERE U.idUsuario = ?;',[req.params.id]);
         console.log(req.params.id)
         console.log('OBTENER USUARIO')
         if(rows.length <= 0) return res.status(404).json({
@@ -43,7 +43,22 @@ export const getUsuarioPerfil = async (req,res) => {
             message: 'Algo falló'
         })
     }
+}
 
+export const getImagenPerfil = async (req,res) => {
+    try{
+        const [ rows ] = await pool.query('SELECT imagen from imagen WHERE idPerfil = ?;',[req.params.id]);
+        console.log(req.params.id)
+        console.log('OBTENER IMAGEN USUARIO')
+        if(rows.length <= 0) return res.status(404).json({
+            message: 'Usuario no encontrado'
+        })
+        res.json(rows);
+    } catch (error){
+        return res.status(500).json({
+            message: 'Algo falló'
+        })
+    }
 }
 
 export const createUsuarios = async (req,res) => {
