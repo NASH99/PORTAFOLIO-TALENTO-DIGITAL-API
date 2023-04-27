@@ -2,7 +2,7 @@ import {pool} from '../db.js'
 
 export const getTop10 = async (req,res) => {
     try{
-        const [ rows ] = await pool.query('SELECT U.idUsuario, P.nombreArtistaPerfil,G.nombreGenero_musical FROM usuario U INNER JOIN genero_musical G on U.idGenero_musical = G.idGenero_musical INNER JOIN perfil P on U.idPerfil = P.idPerfil order by topUsuario desc limit 10;');
+        const [ rows ] = await pool.query('SELECT U.idUsuario, P.nombreArtistaPerfil,G.nombreGenero_musical ,P.topUsuario FROM perfil P INNER JOIN genero_musical G on P.idGenero_musical = G.idGenero_musical INNER JOIN usuario U on P.idUsuario = U.idUsuario order by topUsuario desc limit 10;');
         console.log('OBTENER TOP USUARIOS')
         res.json(rows);
     } catch (error){

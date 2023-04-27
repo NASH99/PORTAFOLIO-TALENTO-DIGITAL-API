@@ -31,7 +31,7 @@ export const getUsuario = async (req,res) => {
 
 export const getUsuarioPerfil = async (req,res) => {
     try{
-        const [ rows ] = await pool.query('select U.idUsuario,U.nombreUsuario,U.apellidoUsuario,U.nickUsuario,U.emailUsuario,U.topUsuario,P.tituloPerfil,P.nombreArtistaPerfil,P.telefonoPerfil,P.nacimientoPerfil,P.GeneroPerfil,P.biografiaPerfil,P.spotifyPerfil,P.youtubePerfil,P.idPais from usuario U inner join perfil P on U.idPerfil = P.idPerfil  WHERE idUsuario = ?;',[req.params.id]);
+        const [ rows ] = await pool.query('select * from perfil P INNER JOIN usuario U ON P.idUsuario = U.idUsuario INNER JOIN pais Pa ON Pa.idPais = P.idPais WHERE U.idUsuario = ?;',[req.params.id]);
         console.log(req.params.id)
         console.log('OBTENER USUARIO')
         if(rows.length <= 0) return res.status(404).json({
