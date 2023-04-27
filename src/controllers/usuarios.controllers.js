@@ -92,7 +92,7 @@ export const updateUsuarios = async (req,res) => {
 export const deleteUsuarios = async (req,res) => {
     try{
         //REVISAR CUANDO SE AGREGUEN MAS DE UNA PUBLICACION
-        const [ result ] = await pool.query('DELETE u, p, pu FROM usuario u LEFT JOIN perfil p ON u.idPerfil = p.idPerfil LEFT JOIN publicacion pu ON u.idPublicacion = pu.idPublicacion WHERE u.idUsuario = ?',[req.params.id]);
+        const [ result ] = await pool.query('CALL eliminarUsuario(?);',[req.params.id]);
         console.log(result)
         if(result.affectedRows <= 0) return res.status(404).json({
             message: 'Usuario no encontrado'
