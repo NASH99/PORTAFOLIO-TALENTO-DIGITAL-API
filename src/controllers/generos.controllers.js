@@ -16,7 +16,7 @@ export const getGenerosUsuarios = async (req,res) => {
     const idGenero = req.params.id;
     console.log(idGenero);
     try{
-        const [ rows ] = await pool.query('SELECT * FROM usuario U INNER JOIN genero_musical G ON U.idGenero_musical = G.idGenero_musical INNER JOIN perfil P ON U.idPerfil = P.idPerfil INNER JOIN imagen I ON U.idImagen = I.idImagen where U.idGenero_musical = ?',[req.params.id]);
+        const [ rows ] = await pool.query('SELECT * FROM usuario U INNER JOIN genero_musical G ON U.idGenero_musical = G.idGenero_musical INNER JOIN perfil P ON U.idPerfil = P.idPerfil where U.idGenero_musical = ?',[req.params.id]);
         console.log('OBTENER USUARIOS POR GENERO MUSICAL')
         console.log(rows)
         console.log(rows.length)

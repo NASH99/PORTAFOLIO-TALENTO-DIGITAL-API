@@ -56,7 +56,7 @@ export const createUsuarios = async (req,res) => {
     }
     console.log(admin)
     try{
-        const [ rows ] = await pool.query('insert into usuario (nombreUsuario,apellidoUsuario,nickUsuario,emailUsuario,claveUsuario,isAdminUsuario) values (?,?,?,?,?,?)',[nombre,apellido,nick,email,clave,admin]);
+        const [ rows ] = await pool.query('CALL crearUsuario(?,?,?,?,?,?);',[nombre,apellido,nick,email,clave,admin]);
         console.log('CREAR USUARIOS')
         res.send({ 
             id: rows.insertId,
