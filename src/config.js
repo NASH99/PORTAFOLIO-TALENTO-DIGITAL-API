@@ -1,7 +1,7 @@
 import {config} from 'dotenv'
 
 config()
-
+//obteniendo los datos en el archivo .env para poder pasarlos a variables
 export const PORT = process.env.PORT || 3000 
 export const DB_USER = process.env.DB_USER || 'root'
 export const DB_PASSWORD = process.env.DB_PASSWORD || '123456789'
