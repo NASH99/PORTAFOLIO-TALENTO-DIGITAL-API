@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { getUsuarios,getUsuario,getUsuarioPerfil,getImagenPerfil, createUsuarios,updateUsuarios,deleteUsuarios} from '../controllers/usuarios.controllers.js';
+import { getUsuarios,getAdmins,getUsuario,getUsuarioPerfil,getImagenPerfil, createUsuarios,updateUsuarios,deleteUsuarios} from '../controllers/usuarios.controllers.js';
 
 const router = Router();
 
@@ -7,6 +7,7 @@ const router = Router();
 
 //Obtener datos
 router.get('/usuarios', getUsuarios);
+router.get('/admins', getAdmins);
 router.get('/usuarios/:id', getUsuario);
 router.get('/perfil/:id', getUsuarioPerfil);
 router.get('/perfil/img/:id', getImagenPerfil);

@@ -12,6 +12,17 @@ export const getUsuarios = async (req,res) => {
     }
 }
 
+export const getAdmins = async (req,res) => {
+    try{
+        const [ rows ] = await pool.query('select * from usuario');
+        res.json(rows);
+    } catch (error){
+        return res.status(500).json({
+            message: 'Algo falló'
+        })
+    }
+}
+
 //Obtener usuario filtrado por id
 export const getUsuario = async (req,res) => {
     try{
