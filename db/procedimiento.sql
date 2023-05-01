@@ -5,4 +5,6 @@ BEGIN
 	 (nombre,apellido,nick,email,clave,isadmin);
 	select @usuario := last_insert_id() from usuario limit 1;
     INSERT INTO perfil (tituloPerfil,idUsuario) values ('',@usuario);
+    select @perfil := last_insert_id() from perfil limit 1;
+    INSERT INTO imagen (idPerfil) values (@perfil);
 END
